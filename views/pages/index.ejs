@@ -1,3 +1,22 @@
 <div>
-    <h2>Home page</h2>
+    <div class=" mx-5 mt-5">
+        <h2>Home page</h2>
+        <div class="border h-[70vh] border-black rounded-lg msg-content overflow-scroll" id="msg"></div>
+        <form action="" class="flex items-center form">
+            <div class="mb-3 flex items-center">
+                <label for="name">Votre nom</label>
+                <input type="text" id="name" name="name"
+                    class="px-1.5 py-2 border border-gray-400  shadow outline-none  w-full"
+                    placeholder="Entrer votre nom">
+            </div>
+            <div class="mb-3 flex items-center flex-1">
+                <label for="message">Votre message</label>
+                <input name="message" id="message" cols="30" rows="5"
+                    class="rounded border border-gray-400 outline-none px-1.5 py-2 w-full"
+                    placeholder="Votre message" />
+            </div>
+            <button class="px-1.5 py-2 block bg-blue-600 rounded-md text-white hover:bg-blue-800"
+                type="submit">Valider</button>
+        </form>
+    </div>
 </div>
