@@ -1,22 +1,116 @@
-<div>
-    <div class=" mx-5 mt-5">
+<div class="flex bg-gray-900 text-gray-100 ">
+    <div class="h-screen bg-gray-900 ">
+        <span class="absolute text-white text-4xl top-5 left-4 cursor-pointer span-pointer">
+            <i class="bi bi-filter-left px-2 bg-gray-900 rounded-md"></i>
+        </span>
+        <div class="sidebarp-2 w-[300px] overflow-y-auto text-center bg-gray-900">
+            <div class="text-gray-100 text-xl">
+                <div class="p-2.5 mt-1 flex items-center">
+                    <h1 class="font-bold text-gray-200 text-[15px] ml-3">Tchat</h1>
+                </div>
+                <div class="my-2 bg-gray-600 h-[1px]"></div>
+            </div>
+            <div class="p-2.5 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-gray-700 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 h-5" viewBox="0 0 512 512">
+                    <title>Search</title>
+                    <path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none"
+                        stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                        stroke-width="32" d="M338.29 338.29L448 448" />
+                </svg>
+                <input type="text" placeholder="Search"
+                    class="text-[15px] ml-4 w-full bg-transparent focus:outline-none" />
+            </div>
+            <div class="my-4 bg-gray-600 h-[1px]"></div>
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white drop">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 h-5" viewBox="0 0 512 512">
+                    <title>Chatbubble</title>
+                    <path
+                        d="M87.49 380c1.19-4.38-1.44-10.47-3.95-14.86a44.86 44.86 0 00-2.54-3.8 199.81 199.81 0 01-33-110C47.65 139.09 140.73 48 255.83 48 356.21 48 440 117.54 459.58 209.85a199 199 0 014.42 41.64c0 112.41-89.49 204.93-204.59 204.93-18.3 0-43-4.6-56.47-8.37s-26.92-8.77-30.39-10.11a31.09 31.09 0 00-11.12-2.07 30.71 30.71 0 00-12.09 2.43l-67.83 24.48a16 16 0 01-4.67 1.22 9.6 9.6 0 01-9.57-9.74 15.85 15.85 0 01.6-3.29z"
+                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10"
+                        stroke-width="32" />
+                </svg>
+                <div class="flex justify-between w-full items-center">
+                    <span class="text-[15px] ml-4 text-gray-200 font-bold">Chatbox</span>
+                    <span class="text-sm rotate-180" id="arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            class="ionicon cursor-pointer ml-28 h-5 w-5 icon-pointer" viewBox="0 0 512 512">
+                            <title>Chevron Down</title>
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="48" d="M112 184l144 144 144-144" />
+                        </svg>
+                    </span>
+                </div>
+            </div>
+            <ul class="text-left chat-item text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold" id="submenu">
+                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+                    <a href="#">Social</a>
+                </li>
+                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+                    <a href="#">Personal</a>
+                </li>
+                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+                    <a href="#">Friends</a>
+                </li>
+            </ul>
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 h-5" viewBox="0 0 512 512">
+                    <title>Home</title>
+                    <path
+                        d="M80 212v236a16 16 0 0016 16h96V328a24 24 0 0124-24h80a24 24 0 0124 24v136h96a16 16 0 0016-16V212"
+                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" />
+                    <path d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256M400 179V64h-48v69" fill="none"
+                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                </svg>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Home</span>
+            </div>
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 h-5" viewBox="0 0 512 512">
+                    <title>Bookmark</title>
+                    <path d="M352 48H160a48 48 0 00-48 48v368l144-128 144 128V96a48 48 0 00-48-48z" fill="none"
+                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                </svg>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Bookmark</span>
+            </div>
+            <div
+                class="p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon w-5 h-5" viewBox="0 0 512 512">
+                    <title>Log Out</title>
+                    <path
+                        d="M304 336v40a40 40 0 01-40 40H104a40 40 0 01-40-40V136a40 40 0 0140-40h152c22.09 0 48 17.91 48 40v40M368 336l80-80-80-80M176 256h256"
+                        fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="32" />
+                </svg>
+                <span class="text-[15px] ml-4 text-gray-200 font-bold">Logout</span>
+            </div>
+        </div>
+    </div>
+    <div class="mx-5 mt-5">
         <h2>Home page</h2>
-        <div class="border h-[70vh] border-black rounded-lg msg-content overflow-scroll" id="msg"></div>
-        <form action="" class="flex items-center form">
+        <div class="border h-[80vh] border-gray-600 rounded-lg msg-content overflow-y-scroll" id="msg"></div>
+        <form action="" class="flex items-center form relative group mb-3 mt-5">
+            <div class="absolute -top-6 text-gray-400 mx-3" id="writing">Ecrit un message...</div>
             <div class="mb-3 flex items-center">
-                <label for="name">Votre nom</label>
+                <label for="name" class="text-gray-400"></label>
                 <input type="text" id="name" name="name"
-                    class="px-1.5 py-2 border border-gray-400  shadow outline-none  w-full"
+                    class="px-1.5 py-2 border border-gray-400 text-gray-600 shadow shadow-gray-300 rounded-3xl bg-transparent outline-none  w-full"
                     placeholder="Entrer votre nom">
             </div>
             <div class="mb-3 flex items-center flex-1">
-                <label for="message">Votre message</label>
+                <label for="message" class="text-gray-400"></label>
                 <input name="message" id="message" cols="30" rows="5"
-                    class="rounded border border-gray-400 outline-none px-1.5 py-2 w-full"
+                    class="border border-gray-400 text-gray-600 shadow shadow-gray-300 rounded-3xl bg-transparent outline-none px-1.5 py-2 w-full"
                     placeholder="Votre message" />
             </div>
-            <button class="px-1.5 py-2 block bg-blue-600 rounded-md text-white hover:bg-blue-800"
-                type="submit">Valider</button>
+            <div class="mb-3 flex items-center">
+
+                <button class="px-1.5 py-2 block bg-blue-600 rounded-md text-white hover:bg-blue-800"
+                    type="submit">Valider</button>
+            </div>
         </form>
     </div>
 </div>
