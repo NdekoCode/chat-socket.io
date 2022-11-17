@@ -1,10 +1,9 @@
 import express from "express";
+import { join } from "path";
 import ejsLayout from "express-ejs-layouts";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+import { syncDB } from "./config/database.js";
+import { __dirname } from "./utils/utils.js";
+syncDB();
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "views"));
