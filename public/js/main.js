@@ -1,5 +1,11 @@
 // On se connecte au serveur socket
 const socket = io(); // Vient du fichier socket.io.js
+
+// On gère l'arriver d'un nouvel utilisateur et pour ça on utilise l'evenement on('connect') de socket.io
+socket.on("connect", () => {
+  // Le message va contenir le nom de la sale et de l'utilisateur
+  socket.emit("enter_room", { room: "", user: "ndekocode" });
+});
 window.addEventListener("DOMContentLoaded", function () {
   const name = document.querySelector("#name");
   const message = document.querySelector("#message");

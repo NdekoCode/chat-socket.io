@@ -1,4 +1,4 @@
-import { define, sequelize } from "../config/dbconfig.js";
+import sequelize from "../config/dbconfig.js";
 import { Sequelize } from "sequelize";
 const ChatMDL = sequelize.define("chat", {
   id: {
