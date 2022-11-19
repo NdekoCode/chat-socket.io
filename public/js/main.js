@@ -10,6 +10,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const name = document.querySelector("#name");
   const message = document.querySelector("#message");
   const form = document.querySelector(".form");
+  const msg = document.querySelector("#msg");
   function dropdown() {
     document.querySelector("#submenu").classList.toggle("hidden");
     document.querySelector("#arrow").classList.toggle("rotate-0");
@@ -17,7 +18,8 @@ window.addEventListener("DOMContentLoaded", function () {
   dropdown();
 
   function openSidebar() {
-    document.querySelector(".sidebar").classList.toggle("hidden");
+    const sidebar = document.querySelector(".sidebar");
+    sidebar && sidebar.classList.toggle("hidden");
   }
   document.querySelector(".drop").addEventListener("click", dropdown);
   this.document
@@ -28,6 +30,10 @@ window.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", openSidebar);
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
+    // On recupère le nom de la salle
+    const actifTab = document.querySelector("#submenu li.active");
+    const room = actifTab.dataset.room;
+    console.log(room);
     console.log("Message envoyer");
     // On envois le message vers tous les utilisateur connecter
     // Une fois que l'on a recuperer les message on va les envoyer au serveur socket en emmettant notre evenement personnaliser "chat"
@@ -46,5 +52,29 @@ window.addEventListener("DOMContentLoaded", function () {
     p.innerHTML = `<span class="p-2 w-16 h-16 mx-1 flex items-center mb-5 rounded-full border border-gray-300 text-center">${data.name}</span> <p class="p-2 rounded-lg bg-blue-800 text-white">${data.message}</p>`;
     const msg = document.querySelector("#msg");
     msg.appendChild(p);
+  });
+
+  // On ecoute le click sur les onglets
+  const lists = document.querySelectorAll("#submenu li");
+  lists.forEach((tab) => {
+    tab.addEventListener("click", function (evt) {
+      if (!this.classList.contains("active")) {
+        // lists.forEach((list) => list.classList.remove("active"));
+        const actifTab = document.querySelector("#submenu li.active");
+        actifTab.classList.remove("active");
+        this.classList.add("active");
+        msg.innerHTML = "";
+        // On quite l'ancienne salle
+        socket.emit("leave_room", {
+          room: actifTab.dataset.room,
+          user: "ndekocode",
+        });
+        // On entre dans la nouvelle salle
+        socket.emit("enter_room", {
+          room: this.dataset.room,
+          user: "ndekocode",
+        });
+      }
+    });
   });
 });

@@ -18,6 +18,15 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Un utilisateur s'est déconnecter"); // Sera appeler quand l'utilisateur va quitter sa page ou va l'actualiser
   });
+  // On ecoute quand on quite la salle
+  socket.on("leave_room", (dataRoom) => {
+    console.log(dataRoom.user + " leave room " + dataRoom.room);
+  });
+  // On ecoute quand on entre dans une nouvelle salle
+  socket.on("enter_room", (roomData) => {
+    socket.join(roomData);
+    console.log(socket.rooms);
+  });
 
   // On gère le tchat en mettant un evenement qu'on veut par exemple on('chat')
   socket.on("chat_message", (message) => {
