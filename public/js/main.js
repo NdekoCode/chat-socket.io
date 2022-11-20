@@ -15,6 +15,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const message = document.querySelector("#message");
   const form = document.querySelector(".form");
   const msg = document.querySelector("#msg");
+  const writing = document.querySelector("#writing");
   // Le nom de la salle et la date du message
   let room = document.querySelector("#submenu li.active").dataset.room;
   const createdAt = new Date();
@@ -49,6 +50,7 @@ window.addEventListener("DOMContentLoaded", function () {
       createdAt,
       room,
     });
+    writing.classList.add("hidden");
     name.value = "";
     message.value = "";
   });
@@ -74,14 +76,64 @@ window.addEventListener("DOMContentLoaded", function () {
         }
         this.classList.add("active");
         msg.innerHTML = "";
+
+        // LOGIQUE FRONT: ON QUITTE D'ABORD UNE SALLE POUR REJOINDRE UNE AUTRE SALLE
         // On quite l'ancienne salle, pour ne pas etre dans plusieurs salle en meme temps
         socket.emit("leave_room", {
           room: actifTab.dataset.room,
-          user: "ndekocode",
+          user: name.value ? name.value : "ndekocode",
+        });
+        socket.emit("enter_room", {
+          room: this.dataset.room,
+          user: name.value ? name.value : "ndekocode",
         });
         // On entre dans la nouvelle salle
         console.log(this.dataset.room);
       }
     });
+  });
+
+  function loadHTMLData(msg) {
+    let createdAt = new Date(msg.createdAt);
+
+    const texte = `<div>
+
+    <small class="block text-center p-1 rounded-md bg-gray-400">${createdAt.toLocaleDateString()}</small>
+      <div class="flex items-center my-5 m-3">
+        <span class="p-2 w-16 h-16 mx-1 flex items-center mb-5 rounded-full border border-gray-300 text-center">${
+          msg.name
+        }</span>
+        <p class="p-2 rounded-lg bg-blue-800 text-white">${msg.message}</p>
+      </div>
+      </div>
+    </div>`;
+    const msgContainer = document.querySelector("#msg");
+    msgContainer.innerHTML += texte;
+  }
+  // On ecoute l'evenement "init message"
+  socket.on("init_message", (data) => {
+    const initMessage = JSON.parse(data.messages);
+    console.log(data);
+    for (let msg of initMessage) {
+      loadHTMLData(msg);
+    }
+  });
+  console.log(message);
+  message.addEventListener("input", (evt) => {
+    const room = document.querySelector("#submenu li.active").dataset.room;
+    const name = document.querySelector("#name").value;
+    console.log(name);
+    socket.emit("typing", { user: name, room: room });
+  });
+  // ON ecoute les messages indiquant que quelqu'un tape au clavier
+  socket.on("usertyping", (data) => {
+    console.log("On tape");
+    writing.classList.remove("hidden");
+    writing.classList.add("block");
+    console.log(writing);
+    writing.innerHTML = `${data.user} est entrer d'ecrire data ${data.room}`;
+    this.setTimeout(() => {
+      writing.classList.add("hidden");
+    }, 3500);
   });
 });

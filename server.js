@@ -19,16 +19,11 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Un utilisateur s'est déconnecter"); // Sera appeler quand l'utilisateur va quitter sa page ou va l'actualiser
   });
-  // LOGIQUE: ON QUITTE D'ABORD UNE SALLE POUR REJOINDRE UNE AUTRE SALLE
-  // On ecoute quand on quite une salle
-  socket.on("leave_room", (dataRoom) => {
-    socket.leave(dataRoom.room); // Pour quitter une salle
-    console.log(dataRoom.user + " leave room " + dataRoom.room);
-  });
   // On ecoute quand on entre dans une nouvelle salle
   socket.on("enter_room", (roomData) => {
     socket.join(roomData.room); // Pour rejoindre une salle
-    console.log("vient de rejoindre", socket.rooms, roomData); // Socket.rooms: c'est la liste des salles et à l'interieur on aura une clé pour chaque utilisateur
+    console.log("vient de rejoindre", socket.rooms, roomData); // Socket.rooms: c'est la liste des salles et à l'interieur on aura une clé pour chaque
+    console.log(roomData.room);
     ChatMDL.findAll({
       where: {
         room: roomData.room,
@@ -42,6 +37,11 @@ io.on("connection", (socket) => {
       });
   });
 
+  // On ecoute quand on quite une salle
+  socket.on("leave_room", (dataRoom) => {
+    socket.leave(dataRoom.room); // Pour quitter une salle
+    console.log(dataRoom.user + " leave room " + dataRoom.room);
+  });
   // On gère le tchat en mettant un evenement qu'on veut par exemple on('chat')
   socket.on("send_message", (message) => {
     // On créer une entrer dans la base de donnée à fin de separer les differentes salle
@@ -61,6 +61,11 @@ io.on("connection", (socket) => {
       .catch((err) => {
         console.log("error lors le l'envois du message");
       });
+  });
+  // On ecoute les messages typing: càd quand l'utilisateur est entrer d'ecrir
+  socket.on("typing", (data) => {
+    console.log(`${data.user} est entrer d'ecrire dans ${data.room} ...`);
+    socket.to(data.room).emit("usertyping", data); // On envoie un evenement uniquement à tous les gens qui sont dans le meme salon
   });
 });
 nodeServer.listen(PORT, () => {
