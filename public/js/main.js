@@ -5,13 +5,19 @@ const socket = io(); // Vient du fichier socket.io.js
 socket.on("connect", () => {
   console.log("Connexion front");
   // Le message va contenir le nom de la sale et de l'utilisateur
-  socket.emit("enter_room", { room: "", user: "ndekocode" });
+  socket.emit("enter_room", {
+    room: document.querySelector("#submenu li.active").dataset.room,
+    user: "ndekocode",
+  });
 });
 window.addEventListener("DOMContentLoaded", function () {
   const name = document.querySelector("#name");
   const message = document.querySelector("#message");
   const form = document.querySelector(".form");
   const msg = document.querySelector("#msg");
+  // Le nom de la salle et la date du message
+  let room = document.querySelector("#submenu li.active").dataset.room;
+  const createdAt = new Date();
   function dropdown() {
     document.querySelector("#submenu").classList.toggle("hidden");
     document.querySelector("#arrow").classList.toggle("rotate-0");
@@ -33,14 +39,15 @@ window.addEventListener("DOMContentLoaded", function () {
     evt.preventDefault();
     // On recupère le nom de la salle
     const actifTab = document.querySelector("#submenu li.active");
-    const room = actifTab.dataset.room;
-    console.log(room);
+    room = actifTab.dataset.room;
     console.log("Message envoyer");
     // On envois le message vers tous les utilisateur connecter
     // Une fois que l'on a recuperer les message on va les envoyer au serveur socket en emmettant notre evenement personnaliser "chat"
     socket.emit("send_message", {
       name: name.value,
       message: message.value,
+      createdAt,
+      room,
     });
     name.value = "";
     message.value = "";
@@ -62,19 +69,18 @@ window.addEventListener("DOMContentLoaded", function () {
       if (!this.classList.contains("active")) {
         // lists.forEach((list) => list.classList.remove("active"));
         const actifTab = document.querySelector("#submenu li.active");
-        actifTab.classList.remove("active");
+        if (actifTab !== null) {
+          actifTab.classList.remove("active");
+        }
         this.classList.add("active");
         msg.innerHTML = "";
-        // On quite l'ancienne salle
+        // On quite l'ancienne salle, pour ne pas etre dans plusieurs salle en meme temps
         socket.emit("leave_room", {
           room: actifTab.dataset.room,
           user: "ndekocode",
         });
         // On entre dans la nouvelle salle
-        socket.emit("enter_room", {
-          room: this.dataset.room,
-          user: "ndekocode",
-        });
+        console.log(this.dataset.room);
       }
     });
   });
