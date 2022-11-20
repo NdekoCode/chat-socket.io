@@ -44,14 +44,14 @@
                 </div>
             </div>
             <ul class="text-left chat-item text-sm mt-2 w-4/5 mx-auto text-gray-200 font-bold" id="submenu">
-                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-                    <a href="#">Social</a>
+                <li data-room="general" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1 active">
+                    <a href="#">Général</a>
                 </li>
-                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-                    <a href="#">Personal</a>
+                <li data-room="entraide" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+                    <a href="#">Entraide</a>
                 </li>
-                <li class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
-                    <a href="#">Friends</a>
+                <li data-room="diverses" class="cursor-pointer p-2 hover:bg-blue-600 rounded-md mt-1">
+                    <a href="#">Diverses</a>
                 </li>
             </ul>
             <div
@@ -91,9 +91,9 @@
     </div>
     <div class="mx-5 mt-5">
         <h2>Home page</h2>
-        <div class="border h-[80vh] border-gray-600 rounded-lg msg-content overflow-y-scroll" id="msg"></div>
+        <div class="border h-[80vh] border-gray-600 rounded-lg msg-content overflow-y-auto" id="msg"></div>
         <form action="" class="flex items-center form relative group mb-3 mt-5">
-            <div class="absolute -top-6 text-gray-400 mx-3" id="writing">Ecrit un message...</div>
+            <div class="absolute -top-6 text-gray-400 mx-3 hidden" id="writing">Ecrit un message...</div>
             <div class="mb-3 flex items-center">
                 <label for="name" class="text-gray-400"></label>
                 <input type="text" id="name" name="name"
