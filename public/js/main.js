@@ -3,6 +3,7 @@ const socket = io(); // Vient du fichier socket.io.js
 
 // On gère l'arriver d'un nouvel utilisateur et pour ça on utilise l'evenement on('connect') de socket.io
 socket.on("connect", () => {
+  console.log("Connexion front");
   // Le message va contenir le nom de la sale et de l'utilisateur
   socket.emit("enter_room", { room: "", user: "ndekocode" });
 });
@@ -37,7 +38,7 @@ window.addEventListener("DOMContentLoaded", function () {
     console.log("Message envoyer");
     // On envois le message vers tous les utilisateur connecter
     // Une fois que l'on a recuperer les message on va les envoyer au serveur socket en emmettant notre evenement personnaliser "chat"
-    socket.emit("chat_message", {
+    socket.emit("send_message", {
       name: name.value,
       message: message.value,
     });
